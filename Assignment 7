@@ -1,0 +1,67 @@
+# create examples of S3 and S4.
+
+# Example of an S3 object
+# Define a list called "car" with various attributes
+car <- list(
+  make = "Toyota",
+  model = "Camry",
+  year = 2023,
+  color = "black"
+)
+
+# Define a function called "print_info" to print the attributes of the "car" list
+print_info <- function(x) {
+  cat("Make: ", x$make, "\n")
+  cat("Model: ", x$model, "\n")
+  cat("Year: ", x$year, "\n")
+  cat("Color: ", x$color, "\n")
+}
+
+# Print the "car" list and its attributes using the "print_info" function
+print(car)  
+print_info(car)
+
+
+# Example of an S4 object
+# Define an S4 class called "person" with slots for name, age, and address
+setClass("person", slots = list(
+  name = "character",
+  age = "numeric",
+  address = "character"
+))
+
+# Create two objects of the "person" class using the new() function
+person1 <- new("person",
+               name = "Kirthi",
+               age = 24,
+               address = "100 Old St."
+)
+
+person2 <- new("person",
+               name = "Lalitha",
+               age = 25,
+               address = "200 New St."
+)
+
+# Define a function called "get_name" to get the name of a "person" object
+get_name <- function(person) { person@name }
+
+# Define a generic function called "get_age"
+setGeneric("get_age", function(person) { standardGeneric("get_age") })
+
+# Define a method for the "get_age" function that extracts the age of a "person" object
+setMethod("get_age", "person", function(person) { person@age })
+
+# Define a function called "get_address" to get the address of a "person" object
+get_address <- function(person) { person@address }
+
+# Define a function called "get_info" to print the name, age, and address of a "person" object
+get_info <- function(person) {
+  cat("Name: ", get_name(person), "\n")
+  cat("Age: ", get_age(person), "\n")
+  cat("Address: ", get_address(person), "\n")
+}
+
+# Print the information for the "person1" and "person2" objects using the "get_info" function
+get_info(person1)  
+get_info(person2)
